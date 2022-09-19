@@ -1,5 +1,4 @@
 import React, {FC, forwardRef, useEffect, useImperativeHandle, useRef} from 'react';
-import {makeStyles,} from "@mui/styles";
 import {Button, Container, Theme } from "@mui/material";
 import {SubmitHandler, useForm } from "react-hook-form";
 
@@ -7,12 +6,6 @@ import MuiInput from "../../../components/MuiComponent/MuiInput";
 
 import {IFormPersonalData} from "./../../../types"
 import MuiPhone from "../../../components/MuiComponent/MuiPhone";
-
-const useStyles = makeStyles((theme:Theme) => ({
-    root: {
-        marginTop: 20,
-    },
-}));
 
 interface IPersonalData {
     useForm: any
@@ -23,15 +16,13 @@ const PersonalData:FC<IPersonalData> = (
         useForm: { register, handleSubmit, formState: { errors }, control }
     }
 ) => {
-    const styles = useStyles();
-
     const handlerSubmitFunction:SubmitHandler<IFormPersonalData> = (data) => {
         console.log('data', data);
     }
 
     return (
         <Container
-            className={styles.root}
+            style={{marginTop: '20px'}}
             component="main"
             maxWidth="xs"
         >

@@ -1,5 +1,4 @@
 import {Control} from "react-hook-form";
-import {Focused} from "react-credit-cards";
 import React from "react";
 
 export interface ICard {
