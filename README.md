@@ -2,13 +2,13 @@
 
 ## ФИО: Кравченко Вячеслав
 
-## Деплой: 
+## Деплой: https://6328a03a28dbc414284f5906--internet-shop-react-ts-mui.netlify.app/order
 
 ## Запуск проекта
 1. Команды для запуска
     ```
         git clone url
-        npm i
+        npm i //файл npmrs имеет опцию legacy-peer-deps=true
         npm start
     ```
 2. Ключи API
