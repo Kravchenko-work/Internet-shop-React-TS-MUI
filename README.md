@@ -2,7 +2,7 @@
 
 ## ФИО: Кравченко Вячеслав
 
-## Деплой: https://internet-shop-react-ts-mui.netlify.app/order
+## Деплой: https://internet-shop-react-ts-mui.netlify.app
 
 ## Запуск проекта
 1. Команды для запуска
