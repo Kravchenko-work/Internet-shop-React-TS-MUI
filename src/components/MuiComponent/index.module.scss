@@ -1,0 +1,11 @@
+.phone {
+    margin: 16px 0 8px 0;
+    > div:nth-child(2) {
+        color: #d32f2f;
+        font-weight: 400;
+        font-size: 0.75rem;
+        line-height: 1.66;
+        font-family: "Roboto","Helvetica","Arial",sans-serif;
+        margin: 3px 14px 0 14px;
+    }
+}

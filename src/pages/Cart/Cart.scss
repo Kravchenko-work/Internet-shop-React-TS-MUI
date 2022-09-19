@@ -1,0 +1,214 @@
+.cart__wrapper {
+    background: #eee;
+    height: 100vh;
+    padding-top: 35px;
+}
+
+.empty-cart {
+    &__wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 80%;
+    }
+}
+
+.product-footer {
+    background: #fff;
+}
+
+.product {
+    border: 1px solid #eee;
+    margin-bottom: 20px;
+    &:last-child {
+        margin: 0;
+    }
+    display: flex;
+
+    -webkit-transition: margin .2s linear, opacity .2s linear;
+    -moz-transition: margin .2s linear, opacity .2s linear;
+    -ms-transition: margin .2s linear, opacity .2s linear;
+    -o-transition: margin .2s linear, opacity .2s linear;
+    transition: margin .2s linear, opacity .2s linear;
+
+
+    @media (max-width: 992px) {
+        .product-header {
+            display: none;
+        }
+    }
+}
+.product-header {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-style: none none solid none;
+}
+
+.product-header  {
+    flex: 1 0 250px;
+    margin-right: 20px;
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+
+    img {
+        width: 100%;
+    }
+
+    &:hover h3 {
+        bottom: calc(50% - 25px);
+    }
+
+    &:hover img {
+        opacity: .7;
+    }
+
+    &__title {
+        display:flex;
+        align-items: center;
+        background: #35baf6;
+        color: #fff;
+        font-size: 22px;
+        font-weight: 300;
+        line-height: 50px;
+        margin: 0;
+        padding: 0 30px;
+        position: absolute;
+        bottom: -50px;
+        right: 0;
+        left: 0;
+
+        -webkit-transition: bottom .2s linear;
+        -moz-transition: bottom .2s linear;
+        -ms-transition: bottom .2s linear;
+        -o-transition: bottom .2s linear;
+        transition: bottom .2s linear;
+    }
+
+}
+
+.product-content {
+    flex: 5 0 0;
+    &__top {
+        padding: 20px;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    &__delete-wrapper {
+        display: flex;
+        align-items: flex-end;
+    }
+
+    &__title{
+        color: #1565c0;
+        font-size: 25px;
+        font-weight: 300;
+    }
+
+    &__brand {
+        color: #1565c0;
+        font-size: 20px;
+        font-weight: 600;
+        margin: 5px 0 10px;
+    }
+
+    > div {
+        background-color: #fff;
+    }
+
+    &__price {
+        font-size: 18px;
+        color: #fbb72c;
+        font-weight: 600;
+
+        > span {
+            font-size: 80%;
+            font-weight: 400;
+            text-decoration: line-through;
+            display: inline-block;
+            margin-right: 5px;
+        }
+    }
+
+
+
+    &__bottom {
+        margin-top: 20px;
+        padding: 0;
+        display: flex;
+        justify-content: space-between;
+
+
+        .price,
+        .full-price {
+            font-weight: 300;
+            height: 100%;
+            display:flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 25px;
+        }
+
+        .full-price {
+            background: #637bfe;
+            color: #fff;
+            font-size: 22px;
+
+            -webkit-transition: margin .15s linear;
+            -moz-transition: margin .15s linear;
+            -ms-transition: margin .15s linear;
+            -o-transition: margin .15s linear;
+            transition: margin .15s linear;
+        }
+
+    }
+
+    &__price-wrapper {
+        display: flex;
+    }
+}
+
+.product-footer {
+    margin-top: 30px;
+    padding: 40px;
+    display: flex;
+    justify-content: space-between;
+    &__left {
+        flex: 0 0 25%;
+    }
+
+    &__right {
+        flex: 0 0 25%;
+    }
+    h1 {
+        background: #fcfcfc;
+        border: 1px solid #ccc;
+        border-style: none none solid none;
+        font-size: 24px;
+        font-weight: 300;
+        margin: 0 0 7px 0;
+        padding: 14px 40px;
+        text-align: center;
+    }
+
+    h2 {
+        font-size: 24px;
+        font-weight: 300;
+        margin: 10px 0 0 0;
+    }
+
+    h3 {
+        font-size: 19px;
+        font-weight: 300;
+        margin: 15px 0;
+    }
+
+}
+
+
+
+
+
+

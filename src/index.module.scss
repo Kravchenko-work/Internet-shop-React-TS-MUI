@@ -1,0 +1,19 @@
+.sector {
+    display: flex;
+    justify-content: space-between;
+
+    > div:first-child {
+        flex: 0 0 255px;
+    }
+    > div:nth-child(2) {
+        flex: 0 0 calc(100% - 300px);
+    }
+}
+
+.marginH {
+    margin: 20px 0;
+}
+
+.flex {
+    display: flex;
+}
