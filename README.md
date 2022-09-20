@@ -1,4 +1,3 @@
-<h1 style="color: red; font-weight: 700">API https://dummyjson.com/ временно не работает!</h1>
 # Тестовое задание SPA приложение (интернет магазин) React + TS + Mui
 
 ## ФИО: Кравченко Вячеслав
