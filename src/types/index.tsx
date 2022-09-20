@@ -15,6 +15,10 @@ export interface ICard {
     images: string[];
 }
 
+export interface IListCard {
+    list: ICard[];
+}
+
 export interface ICardInCart extends ICard{
     count: number;
 }

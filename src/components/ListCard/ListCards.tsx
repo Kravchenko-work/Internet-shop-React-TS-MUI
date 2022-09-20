@@ -4,10 +4,7 @@ import ProductCard from "../ProductCard/ProductCard";
 
 import s from "./ListCard.module.scss";
 
-import {ICard} from "../../types";
-interface IListCard {
-    list: ICard[];
-}
+import {IListCard} from "../../types";
 
 const ListCards:FC<IListCard> = ({list}) => {
     return (

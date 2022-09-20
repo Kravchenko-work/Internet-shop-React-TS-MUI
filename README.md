@@ -1,3 +1,4 @@
+<h1 style="color: red; font-weight: 700">API https://dummyjson.com/ временно не работает!</h1>
 # Тестовое задание SPA приложение (интернет магазин) React + TS + Mui
 
 ## ФИО: Кравченко Вячеслав
@@ -12,7 +13,7 @@
         npm start
     ```
 2. Ключи API
-   - API магазина - не нужно
+   - API магазина(https://dummyjson.com/) - не нужно
    - API yandex map: нужно указать по аналогии с env_example: [api yandex](https://developer.tech.yandex.ru/)
 
 ## Информация о доступах (логины/пароли итд):
