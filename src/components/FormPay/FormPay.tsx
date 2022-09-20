@@ -13,7 +13,7 @@ interface IFormPay {
 const FormPay:FC<IFormPay> = ({listAddedCart, type="cart"}) => {
     const [open, setOpen] = React.useState(false);
 
-    const [productsInCart, setProductsInCart] = useLocalStorage<IProductInCart[],
+    const [_, setProductsInCart] = useLocalStorage<IProductInCart[],
         (val: IProductInCart[]) => void>('productsInCart', []);
 
     const navigate = useNavigate();

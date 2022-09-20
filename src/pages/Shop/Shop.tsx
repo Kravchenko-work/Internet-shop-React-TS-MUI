@@ -1,5 +1,5 @@
 import React, {FC, PropsWithChildren, useEffect, useState, useContext, useMemo} from 'react';
-import {Alert, AlertTitle, Container} from "@mui/material";
+import {Alert, AlertTitle, Container, Stack} from "@mui/material";
 
 import FilterTopbar from "../../components/FilterTopbar";
 import FilterSidebar from "../../components/FilterSidebar";
@@ -62,8 +62,18 @@ const MainShop:FC = () => {
                     (isLoading) ?
                         <ShopSkeleton count={6}/> : (
                             <div>
-                                <SortingCard useListCard={[listCards, setListCards]}/>
-                                <ListCards list={listCards}/>
+                                {
+                                    (listCards.length > 1) ? (
+                                        <>
+                                            <SortingCard useListCard={[listCards, setListCards]}/>
+                                            <ListCards list={listCards}/>
+                                        </>
+                                    ) : (
+                                        <Stack spacing={2} sx={{ width: '100%' }}>
+                                            <Alert severity="info">Product not found!</Alert>
+                                        </Stack>
+                                    )
+                                }
                             </div>
                         )
                 }
