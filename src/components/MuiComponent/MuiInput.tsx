@@ -10,22 +10,27 @@ const MuiInput:FC<IMuiInput> = (
         helperText,
         label,
         onInput,
-        onFocus
+        onFocus,
+        readOnly = false
     }) => {
+
     return (
         <TextField
             fullWidth
-            variant="outlined"
+            variant={readOnly ? "filled" : "outlined"}
             margin="normal"
-            label={label}
+            hiddenLabel={readOnly}
+            label={readOnly ? null : label}
             {...register()}
             error={error}
             helperText={helperText}
             onInput={onInput}
             onFocus={onFocus}
+            InputProps={{
+                readOnly: readOnly,
+            }}
         />
     );
 }
-
 
 export default MuiInput;

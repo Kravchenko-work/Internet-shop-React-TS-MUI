@@ -1,7 +1,6 @@
 import React, {FC} from 'react';
 import YandexMap from "./YandexMap/YandexMap";
 import MuiInput from "../../../components/MuiComponent/MuiInput";
-import {IFormAddress} from "../../../types";
 
 interface IAddress {
     useForm: any
@@ -23,7 +22,11 @@ const Address:FC<IAddress> = (
 ) => {
     return (
         <div>
-            <YandexMap setValue={setAddress} setFocus={setFocus} clearErrors={clearErrors}/>
+            <YandexMap
+                setValue={setAddress}
+                setFocus={setFocus}
+                clearErrors={clearErrors}
+            />
             <MuiInput
                 register={() => {return register("address", {
                     required: "Address is a required field!",
@@ -31,6 +34,7 @@ const Address:FC<IAddress> = (
                 error={Boolean(errors.address)}
                 helperText={errors?.address?.message}
                 label="Address"
+                readOnly={true}
             />
         </div>
     );
