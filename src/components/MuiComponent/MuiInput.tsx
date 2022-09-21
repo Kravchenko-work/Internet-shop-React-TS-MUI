@@ -11,7 +11,7 @@ const MuiInput:FC<IMuiInput> = (
         label,
         onInput,
         onFocus,
-        readOnly = false
+        readOnly = false,
     }) => {
 
     return (

@@ -11,7 +11,8 @@ const MuiSelect:FC<IMuiSelect> = (
         helperText,
         label,
         defaultValue,
-        onFocus
+        onFocus,
+        onClose
     }) => {
     return (
             <FormControl error={error} fullWidth>
@@ -21,6 +22,7 @@ const MuiSelect:FC<IMuiSelect> = (
                     {...register()}
                     defaultValue={defaultValue}
                     onFocus={onFocus}
+                    onClose={onClose}
                 >
                     {options.map((item) => (
                         <MenuItem value={item.value} key={item.value}>{item.label}</MenuItem>

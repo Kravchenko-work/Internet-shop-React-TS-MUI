@@ -1,4 +1,4 @@
-import React, {FC, FormEvent, useState} from 'react';
+import React, {FC, FormEvent, useEffect, useState} from 'react';
 import Cards, {Focused} from 'react-credit-cards';
 import "./form-style.css";
 import './CreditCard.css';
@@ -40,7 +40,7 @@ const normalizeCardCvc = (val:string) => {
 
     let invalidChars = ["-", "+", "e", "E", " ", "."];
 
-
+    console.log(returnVal.replace(/[-+eE\.\s]/, "").slice(0,4));
     return returnVal.replace(/[-+eE\.\s]/, "").slice(0,4);
 }
 
@@ -169,49 +169,10 @@ const CreditCard:FC<ICreditCard> = (
         expiryyear: ""
     });
 
-    const removeSpecial = (e: React.KeyboardEvent<HTMLElement>) => {
-        let invalidChars = ["-", "+", "e", "E", " ", "."];
-        if (invalidChars.includes(e.key)) {
-            e.preventDefault();
-        }
-    };
-
     const handlerChangeNumber = (e: React.ChangeEvent<HTMLInputElement>) => {
         setStateCreditCard({
             ...stateCreditCard,
             number: e.target.value.replace(/[A-Za-z}"`~_=.\->\]|<?+*/,;\[:{\\!@#\/'$%^&*()]/g, "")
-        });
-    }
-
-    const handlerChangeCvc = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const { value, maxLength } = e.target;
-        setStateCreditCard({
-            ...stateCreditCard,
-            cvc: value.length > maxLength ? value.slice(0, maxLength) : value,
-        });
-    };
-
-    const handlerChangeName = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setStateCreditCard({
-            ...stateCreditCard,
-            name: e.target.value.replace(
-                /[}"`~_=.\->\]|<?+*/,\d;\[:{\\!@#\/'$%^&*()]/g,
-                ""
-            )
-        });
-    }
-
-    const handlerChangeExpiryyear = (e: React.ChangeEvent<HTMLSelectElement>) => {
-        setStateCreditCard({
-            ...stateCreditCard,
-            expiryyear: e.target.value
-        });
-    }
-
-    const handlerChangeExpiry = (e: React.ChangeEvent<HTMLSelectElement>) => {
-        setStateCreditCard({
-            ...stateCreditCard,
-            expiry: e.target.value
         });
     }
 
@@ -222,25 +183,32 @@ const CreditCard:FC<ICreditCard> = (
         });
     };
 
-    console.log('getValues', getValues());
-    console.log('errors', errors);
 
-    React.useEffect(() => {
-
-        console.log(watch);
-        // const subscription = watch((value, { name, type }) => console.log(value, name, type));
-        // return () => subscription.unsubscribe();
-    }, [watch]);
+    const spliceExpiry = () => {
+        if (!(getValues("expiry") || !(getValues("expiryyear")))){
+            return ""
+        }
+        let returnStr = "";
+        if (!isNaN(parseInt(getValues("expiry")))) {
+            returnStr += getValues("expiry");
+        } else {
+            returnStr += '  ';
+        }
+        if (!isNaN(parseInt(getValues("expiryyear")))) {
+            returnStr += getValues("expiryyear").slice(2,4);
+        }
+        return returnStr
+    }
 
     return (
         <div id="PaymentForm">
             <div className="credit-card ">
                 <Cards
-                    cvc={stateCreditCard.cvc}
-                    expiry={stateCreditCard.expiry}
-                    focused={stateCreditCard.focused}
-                    name={stateCreditCard.name}
                     number={stateCreditCard.number}
+                    name={stateCreditCard.name}
+                    expiry={stateCreditCard.expiry}
+                    cvc={stateCreditCard.cvc}
+                    focused={stateCreditCard.focused}
                 />
             </div>
             <div className="card">
@@ -257,7 +225,11 @@ const CreditCard:FC<ICreditCard> = (
                             setValue(
                                 "number",
                                 normalizeCardNumber(e.target.value)
-                            )
+                            );
+                            setStateCreditCard({
+                                ...stateCreditCard,
+                                number: normalizeCardNumber(e.target.value)
+                            })
                         }}
                         onFocus={handleInputFocus}
                         error={Boolean(errors.number)}
@@ -271,8 +243,12 @@ const CreditCard:FC<ICreditCard> = (
                         onInput={(e) => {
                             setValue(
                                 "name",
-                                normalizeCardName(e.target.value)
+                                normalizeCardName(e.target.value),
                             )
+                            setStateCreditCard({
+                                ...stateCreditCard,
+                                name: normalizeCardName(e.target.value),
+                            })
                         }}
                         onFocus={handleInputFocus}
                         error={Boolean(errors.name)}
@@ -288,6 +264,13 @@ const CreditCard:FC<ICreditCard> = (
                                    message: 'Expiry is required!'
                                }
                            })}}
+                           onClose={() => {
+                               console.log(getValues("expiry"));
+                               setStateCreditCard({
+                                   ...stateCreditCard,
+                                   expiry: spliceExpiry(),
+                               })
+                           }}
                            options={optionsExpiry}
                            defaultValue="month"
                            onFocus={handleInputFocus}
@@ -303,6 +286,12 @@ const CreditCard:FC<ICreditCard> = (
                                    message: 'Expiryyear is required!'
                                }
                            })}}
+                           onClose={() => {
+                               setStateCreditCard({
+                                   ...stateCreditCard,
+                                   expiry: spliceExpiry(),
+                               })
+                           }}
                            options={optionsExpiryyear}
                            defaultValue="years"
                            onFocus={handleInputFocus}
@@ -317,33 +306,24 @@ const CreditCard:FC<ICreditCard> = (
                             minLength: {
                                 value: 4,
                                 message: "CVC should have correct format"
-                            }
+                            },
+                            maxLength: 5
                         })}}
                         onInput={(e) => {
                             setValue(
                                 "cvc",
                                 normalizeCardCvc(e.target.value)
                             )
+                            setStateCreditCard({
+                                ...stateCreditCard,
+                                cvc: normalizeCardCvc(e.target.value),
+                            })
                         }}
                         onFocus={handleInputFocus}
                         error={Boolean(errors.cvc)}
                         helperText={errors?.cvc?.message}
                         label="CVC"
                     />
-                    <div className="date-cvv-box">
-                        <div className="expiry-class">
-                            <div className="card-month ">
-
-                            </div>
-                            <div className="card-year">
-
-                            </div>
-                        </div>
-
-                        <div className="cvv-class">
-
-                        </div>
-                    </div>
                 </form>
             </div>
         </div>

@@ -100,34 +100,31 @@ const Order:FC = () => {
         const newCompleted = completed;
         switch(activeStep) {
             case 0:
-                if (Object.keys(errors).length === 0 && getValues("name")) {
+                trigger();
+                handleSubmit(() => {
                     newCompleted[activeStep] = true;
                     setCompleted(newCompleted);
                     handleNext();
                     setPersonalData({...getValues()});
-                } else {
-                    trigger();
-                }
+                })()
                 return;
             case 1:
-                if (Object.keys(errorsCreditCard).length === 0 && getValuesCreditCard("number")) {
+                triggerCreditCard();
+                handleSubmitCreditCard(() => {
                     newCompleted[activeStep] = true;
                     setCompleted(newCompleted);
                     handleNext();
                     setCreditCard({...getValuesCreditCard()});
-                } else {
-                    triggerCreditCard();
-                }
+                })()
                 return;
             case 2:
-                if (Object.keys(errorsAddress).length === 0 && getValuesAddress("address")) {
+                triggerAddress();
+                handleSubmitAddress(() => {
                     newCompleted[activeStep] = true;
                     setCompleted(newCompleted);
                     handleNext();
                     setAddress({...getValuesAddress()});
-                } else {
-                    triggerAddress();
-                }
+                })()
                 return
             default:
         }
