@@ -1,7 +1,7 @@
 import React, {FC} from 'react';
 import {FormControl, FormHelperText, InputLabel, MenuItem, Select, TextField} from "@mui/material";
 
-import {IMuiSelect} from "./../../types"
+import {IMuiSelect} from "../../types"
 
 const MuiSelect:FC<IMuiSelect> = (
     {

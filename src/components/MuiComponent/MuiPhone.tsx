@@ -1,6 +1,6 @@
 import React, {FC} from 'react';
 import ReactPhoneInput from 'react-phone-input-material-ui';
-import {Control, Controller} from "react-hook-form";
+import {Controller} from "react-hook-form";
 import {TextField} from "@mui/material";
 
 import s from "./index.module.scss";

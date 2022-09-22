@@ -1,7 +1,5 @@
 import {useEffect, useState} from "react";
 
-import {typeLocalStorage} from "../types/index"
-
 function useLocalStorage<T1,T2> (key:string, initialValue:T1):[T1, T2] {
     const[value, setValue] = useState(() => {
         const localStorageValue = localStorage.getItem(key);

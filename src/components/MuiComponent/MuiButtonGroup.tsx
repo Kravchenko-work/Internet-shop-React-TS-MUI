@@ -10,15 +10,13 @@ import MenuItem from '@mui/material/MenuItem';
 import MenuList from '@mui/material/MenuList';
 import {FC, useContext, useEffect} from "react";
 import ContextSearchUrl from "../../contexts/SearchUrl";
-import {Box} from "@mui/material";
 
 interface ISplitButton {
-    listCategory: string[];
-    // setUrl: (val: string) => void;
+    listCategory: string[]
 }
 
 const MuiButtonGroup:FC<ISplitButton> = ({listCategory}) => {
-    const [url, setUrl] = useContext(ContextSearchUrl)
+    const [url, setUrl] = useContext(ContextSearchUrl);
     const [open, setOpen] = React.useState(false);
     const [selectedIndex, setSelectedIndex] = React.useState(0);
     const anchorRef = React.useRef<HTMLDivElement>(null);

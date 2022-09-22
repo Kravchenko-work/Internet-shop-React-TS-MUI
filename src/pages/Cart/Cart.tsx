@@ -19,15 +19,14 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import useFetch from "../../hooks/useFetch";
 import useLocalStorage from "../../hooks/useLocalStorage";
 import {
-    calcPriceAllCardAllCount,
     calcPriceOneCardAllCount,
-    currentPrice, getCountProductInCart,
+    currentPrice,
     getListAddedCartFromGetListCard, getUpdatedProductsInCart
 } from "../../utils";
 
 import "./Cart.scss";
 
-import {ICard, ICardInCart, IProductInCart} from "../../types";
+import {ICardInCart, IProductInCart} from "../../types";
 import FormPay from "../../components/FormPay/FormPay";
 
 
@@ -35,7 +34,7 @@ const Cart:FC = () => {
     const navigate = useNavigate();
     const [listAddedCart, setListAddedCart] = useState<ICardInCart[]>([]);
     const [open, setOpen] = useState(false);
-    const [{response, error, isLoading}, doFetch] = useFetch();
+    const [{response, isLoading}, doFetch] = useFetch();
     const [productsInCart, setProductsInCart] = useLocalStorage<IProductInCart[],
         (val: IProductInCart[]) => void>('productsInCart', []);
 
@@ -69,10 +68,6 @@ const Cart:FC = () => {
         }))
         setOpen(false);
     };
-
-    // const handlerRedirectBuy = () => {
-    //     navigate('/order');
-    // }
 
     useEffect(() => {
         doFetch();
@@ -116,9 +111,6 @@ const Cart:FC = () => {
         )
     }
 
-    const subtotal = calcPriceAllCardAllCount(listAddedCart),
-            taxes = (calcPriceAllCardAllCount(listAddedCart) * 0.05).toFixed(2),
-            total = (subtotal + Number(taxes) + 5).toFixed(2);
     return (
         <div className="cart__wrapper">
             <Container>

@@ -1,7 +1,7 @@
-import React, {FC, useState} from 'react';
+import React, {FC} from 'react';
 import {IconButton, Rating} from "@mui/material";
 
-import {currentPrice, getCountProductInCart} from "../../utils";
+import {currentPrice} from "../../utils";
 
 import s from "./ProductCard.module.scss";
 

@@ -67,7 +67,6 @@ export interface IMuiInput {
     onInput?: (val:React.ChangeEvent<HTMLInputElement>) => void
     onFocus?: (val: React.FocusEvent<HTMLInputElement>) => void
     readOnly?: boolean
-    onChange?: (val:React.ChangeEvent<HTMLInputElement>) => void
 }
 
 export interface IMuiPhone {

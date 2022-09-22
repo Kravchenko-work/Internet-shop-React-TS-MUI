@@ -1,17 +1,13 @@
-import React, {FC, useContext, useState} from 'react';
+import React, {FC, useState} from 'react';
 import {
     FormControlLabel,
     FormLabel, Radio,
-    RadioGroup, FormControl,
+    RadioGroup,
     Button, Popper,
-    Box, Fade,
-    Paper, Typography,
-
-    PopperPlacementType, ClickAwayListener
+    Box, ClickAwayListener
 } from "@mui/material";
 
 import {currentPrice} from "../utils";
-import ContextSearchUrl from "../contexts/SearchUrl";
 
 import {ICard} from "../types";
 
@@ -28,8 +24,6 @@ const SortingCard:FC<ISortingCard> = ({useListCard}) => {
     const [radio, setRadio] = useState('Default');
 
     const anchorRef = React.useRef<HTMLDivElement>(null);
-
-    const [url, setUrl] = useContext(ContextSearchUrl);
 
     const [listCard, setListCard] = useListCard;
 
