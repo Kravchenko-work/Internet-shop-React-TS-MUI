@@ -97,13 +97,15 @@
     background: linear-gradient(25deg, #999, #999);
 
     box-shadow: 0 30px 60px 0 rgba(90, 116, 148, 0.4);
-    /*background-image: url(https://github.com/muhammederdem/vue-interactive-paycard/blob/master/src/assets/images/23.jpeg?raw=true);*/
+    background-image: url(https://github.com/muhammederdem/vue-interactive-paycard/blob/master/src/assets/images/23.jpeg?raw=true),
+        url("/src/assets/image/6.jpeg");
 }
 .rccs__card--unknown .rccs__issuer {
     visibility: visible;
     width: 84.89px;
     height: 45px;
-    /*background-image: url(https://github.com/muhammederdem/vue-interactive-paycard/blob/master/src/assets/images/visa.png?raw=true);*/
+    background-image: url(https://github.com/muhammederdem/vue-interactive-paycard/blob/master/src/assets/images/visa.png?raw=true),
+    url(https://upload.wikimedia.org/wikipedia/commons/thumb/d/d6/Visa_2021.svg/1200px-Visa_2021.svg.png);
 }
 .rccs__card:not(.rccs__card--unknown) .rccs__card__background {
     left: -22%;

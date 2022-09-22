@@ -15,7 +15,7 @@ import s from "../../index.module.scss";
 import {ICard} from "./../../types";
 
 const MainShop:FC = () => {
-    const [listCards, setListCards] = useState<ICard[]>([]);
+    const [listCards, setListCards] = useState<ICard[] | null>([]);
     const [cloneListCards, setCloneListCards] = useState<ICard[]>([]);
     const [url, setUrl] = useContext(ContextSearchUrl);
     const [{response, error, isLoading}, doFetch] = useFetch(url);
@@ -55,28 +55,29 @@ const MainShop:FC = () => {
         )
     }
 
+    console.log('isLoading', isLoading);
+    console.log('listCards', listCards);
+
     return (
             <div className={s.sector}>
                 <FilterSidebar setListCards={setListCards} cloneListCards={cloneListCards}/>
-                {
-                    (isLoading) ?
-                        <ShopSkeleton count={6}/> : (
-                            <div>
-                                {
-                                    (listCards.length > 1) ? (
-                                        <>
-                                            <SortingCard useListCard={[listCards, setListCards]}/>
-                                            <ListCards list={listCards}/>
-                                        </>
-                                    ) : (
-                                        <Stack spacing={2} sx={{ width: '100%' }}>
-                                            <Alert severity="info">Product not found!</Alert>
-                                        </Stack>
-                                    )
-                                }
-                            </div>
-                        )
-                }
+                {isLoading && <ShopSkeleton count={6}/>}
+                {!isLoading && response && (
+                    <div>
+                        {
+                            (listCards) ? (
+                                <>
+                                    <SortingCard useListCard={[listCards, setListCards]}/>
+                                    <ListCards list={listCards}/>
+                                </>
+                            ) : (
+                                <Stack spacing={2} sx={{ width: '100%' }}>
+                                    <Alert severity="info">Product not found!</Alert>
+                                </Stack>
+                            )
+                        }
+                    </div>
+                )}
             </div>
     );
 };
