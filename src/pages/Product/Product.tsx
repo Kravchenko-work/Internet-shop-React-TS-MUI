@@ -23,7 +23,7 @@ import useFetch from "../../hooks/useFetch";
 import {currentPrice, getUpdatedProductsInCart, getCountProductInCart} from "../../utils";
 import useLocalStorage from "../../hooks/useLocalStorage";
 
-import "./Product.scss";
+import s from "./Product.module.scss";
 
 import {IProductInCart, ICard} from "../../types/index";
 
@@ -46,48 +46,46 @@ const theme = createTheme({
     },
 });
 
-
-
-
-
 const Product:FC = () => {
     const navigate  = useNavigate();
     const [product, setProduct] = useState<ICard | null>(null);
     const [addedProduct, setAddedProduct] = useState(0);
-    const [isShowError, setIsShowError] = useState<boolean>(false);
+    const [isShowErrorStock, setIsShowErrorStock] = useState<boolean>(false);
+    const [isShowErrorNoAddedProduct, setIsShowErrorNoAddedProduct] = useState<boolean>(false);
     const [openSuccessfully, setOpenSuccessfully] = useState<boolean>(false);
+    const [openImpossible, setOpenImpossible] = useState<boolean>(false);
     const params = useParams<typeParams>();
     const [{response, error, isLoading}, doFetch] = useFetch(`/${params.id}`);
     const [productsInCart, setProductsInCart] = useLocalStorage<IProductInCart[],
-                                                                (val: IProductInCart[]) => void>('productsInCart', []);
+            (val: IProductInCart[]) => void>('productsInCart', []);
     const handlerAddCart = () => {
-        if (!addedProduct) {
-            return
-        }
-
-        if (!product) {
+        if (!addedProduct || !product) {
+            setIsShowErrorNoAddedProduct(true);
             return
         }
 
         setOpenSuccessfully(true);
         setProductsInCart(getUpdatedProductsInCart(productsInCart, product.id, addedProduct));
         setAddedProduct(0);
-        setIsShowError(false);
+        setIsShowErrorStock(false);
     }
 
     const handlerIncreaseCount = (product:ICard) => {
         const count = getCountProductInCart(productsInCart, product.id)
 
         if (product.stock > count + addedProduct) {
-            setAddedProduct(addedProduct + 1)
+            setAddedProduct(addedProduct + 1);
+            setIsShowErrorNoAddedProduct(false);
         } else {
-            setIsShowError(true);
+            setIsShowErrorStock(true);
         }
     }
 
     const handlerReduceCount = () => {
         if (addedProduct) {
-            setIsShowError(false);
+            setIsShowErrorStock(false);
+        } else {
+            setOpenImpossible(true);
         }
         setAddedProduct(Math.max(addedProduct - 1, 0));
     }
@@ -98,6 +96,14 @@ const Product:FC = () => {
         }
 
         setOpenSuccessfully(false);
+    };
+
+    const handleCloseImpossible = (event?: React.SyntheticEvent | Event, reason?: string) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+
+        setOpenImpossible(false);
     };
 
     useEffect(() => {
@@ -114,48 +120,48 @@ const Product:FC = () => {
 
     return (
         <ThemeProvider theme={theme}>
-            <div className="wrapper">
-                <div className="wrapper__inner">
-                    <div className="card">
+            <div className={s.wrapper}>
+                <div className={s.wrapperInner}>
+                    <div className={s.card}>
                         {!product || isLoading ? (
                             <ProductSkeleton/>
                         ) : (
                             <>
-                                <div className="card-top">
-                                    <button onClick={() => navigate(-1)} className="card-top__button">
-                                        <span><i className="fa fa-arrow-left"></i></span>
+                                <div className={s.cardTop}>
+                                    <button onClick={() => navigate(-1)} className={s.cardTopButton}>
+                                        <span><i className={clsx(s.fa, s.faArrowLeft)}></i></span>
                                     </button>
-                                    <h3 className="card-top__title">{product.category}</h3>
+                                    <h3 className={s.cardTopTitle}>{product.category}</h3>
                                 </div>
-                                <div className="card-body">
-                                    <div className="card-body__half">
+                                <div className={s.cardBody}>
+                                    <div className={s.cardBodyHalf}>
                                         <div>
-                                            <h3 className="card-body__title">{product.brand}</h3>
-                                            <p className="card-body__subtitle">{product.title}</p>
-                                            <p className="card-body__price">
+                                            <h3 className={s.cardBodyTitle}>{product.brand}</h3>
+                                            <p className={s.cardBodySubtitle}>{product.title}</p>
+                                            <p className={s.cardBodyPrice}>
                                                 <span>${product.price}</span>
                                                 ${currentPrice(product)}
                                             </p>
                                         </div>
-                                        <div className="card-body__image">
+                                        <div className={s.cardBodyImage}>
                                             <img src={product.thumbnail} alt=""/>
                                         </div>
                                     </div>
-                                    <div className="card-body__half">
-                                        <div className="card-body__description">
+                                    <div className={s.cardBodyHalf}>
+                                        <div className={s.cardBodyDescription}>
                                             {product.description}
                                         </div>
-                                        <div className={clsx('card-body__stock',!product.stock && 'card-body__stock-out')}>
+                                        <div className={clsx(s.cardBodyStock,!product.stock && s.cardBodyStockOut)}>
                                             In stock {product.stock}
                                         </div>
-                                        <div className="card-body__rating">
+                                        <div className={s.cardBodyRating}>
                                             <Rating name="disabled" value={+product.rating.toFixed(1)} readOnly precision={0.1}/>
                                             <div>{product.rating}</div>
                                         </div>
                                     </div>
                                 </div>
-                                <div className="card-bottom__wrapper">
-                                    <div className="card-bottom">
+                                <div className={s.cardBottomWrapper}>
+                                    <div className={s.cardBottom}>
                                         <ButtonGroup>
                                             <Button
                                                 aria-label="reduce"
@@ -180,7 +186,7 @@ const Product:FC = () => {
                                         </NavLink>
                                     </div>
                                     {
-                                        isShowError && (
+                                        isShowErrorStock && (
                                             product.stock ? (
                                                 <Alert severity="info">
                                                     <AlertTitle>Info</AlertTitle>
@@ -194,6 +200,14 @@ const Product:FC = () => {
                                             )
                                         )
                                     }
+                                    {
+                                        isShowErrorNoAddedProduct && (
+                                            <Alert severity="info">
+                                                <AlertTitle>Info</AlertTitle>
+                                                You have 0 products selected!
+                                            </Alert>
+                                        )
+                                    }
                                 </div>
                             </>
                         )}
@@ -203,6 +217,11 @@ const Product:FC = () => {
             <Snackbar open={openSuccessfully} autoHideDuration={6000} onClose={handleCloseSuccessfully}>
                 <Alert onClose={handleCloseSuccessfully} severity="success" sx={{ width: '100%' }}>
                     Product was successfully added to the cart!
+                </Alert>
+            </Snackbar>
+            <Snackbar open={openImpossible} autoHideDuration={6000} onClose={handleCloseImpossible}>
+                <Alert onClose={handleCloseImpossible} severity="warning" sx={{ width: '100%' }}>
+                    This operation impossible!
                 </Alert>
             </Snackbar>
         </ThemeProvider>

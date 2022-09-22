@@ -9,7 +9,7 @@
     background-repeat: no-repeat;
     background-attachment: fixed;
     padding: 3% 0;
-    &__inner {
+    &Inner {
         max-width: 720px;
         margin: 0 auto;
     }
@@ -22,12 +22,12 @@
     padding: 50px 60px;
 }
 
-.card-top {
+.cardTop {
     display: flex;
     align-items: center;
     margin-bottom: 30px;
 
-    &__button {
+    &Button {
         flex: 1 0 10px;
         background: #115dd8;
         color: #fff;
@@ -45,7 +45,7 @@
         }
     }
 
-    &__title {
+    &Title {
         flex: 0 1 200px;
         text-align: right;
         font-weight: 700;
@@ -54,11 +54,11 @@
     }
 }
 
-.card-body{
+.cardBody{
     display: flex;
     margin-bottom: 25px;
 
-    &__half{
+    &Half{
         flex: 1 0 50%;
         &:last-child {
             padding-left: 20px;
@@ -66,7 +66,7 @@
         }
     }
 
-    &__title {
+    &Title {
         margin-bottom: 15px;
         font-weight: 800;
         font-size: 64px;
@@ -74,7 +74,7 @@
         color: #181e28;
     }
 
-    &__subtitle {
+    &Subtitle {
         font-size: 26px;
         text-transform: uppercase;
         color: #686e77;
@@ -82,7 +82,7 @@
         margin-bottom: 5px;
     }
 
-    &__price {
+    &Price {
         font-size: 18px;
         color: #fbb72c;
         font-weight: 600;
@@ -95,7 +95,7 @@
         }
     }
 
-    &__image{
+    &Image{
         width: 100%;
         > img{
             display: block;
@@ -104,7 +104,7 @@
         }
     }
 
-    &__description{
+    &Description{
         font-weight: 300;
         line-height: 27px;
         font-size: 16px;
@@ -112,16 +112,16 @@
         margin-bottom: 25px;
     }
 
-    &__stock{
+    &Stock{
         font-weight: 600;
         color: #a1cc16;
-        &-out {
+        &Out {
             color: red;
             font-weight: 700;
         }
     }
 
-    &__rating {
+    &Rating {
         display: flex;
         > div:last-child {
             margin-left: 5px;
@@ -133,7 +133,7 @@
     }
 }
 
-.card-bottom{
+.cardBottom{
     display: flex;
     align-items: center;
     justify-content: flex-end;
@@ -146,7 +146,7 @@
         }
     }
 
-    &__wrapper {
+    &Wrapper {
         height: 100px;
     }
 }
@@ -160,6 +160,6 @@
     -moz-osx-font-smoothing: grayscale;
 }
 
-.fa-arrow-left:before {
+.faArrowLeft:before {
     content: "\f060";
 }
