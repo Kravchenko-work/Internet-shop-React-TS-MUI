@@ -1,4 +1,4 @@
-import React, {FC, PropsWithChildren, useEffect, useState, useContext, useMemo} from 'react';
+import React, {FC, useEffect, useState, useContext} from 'react';
 import {Alert, AlertTitle, Container, Stack} from "@mui/material";
 
 import FilterTopbar from "../../components/FilterTopbar";
@@ -17,7 +17,7 @@ import {ICard} from "./../../types";
 const MainShop:FC = () => {
     const [listCards, setListCards] = useState<ICard[] | null>([]);
     const [cloneListCards, setCloneListCards] = useState<ICard[]>([]);
-    const [url, setUrl] = useContext(ContextSearchUrl);
+    const [url, _] = useContext(ContextSearchUrl);
     const [{response, error, isLoading}, doFetch] = useFetch(url);
 
     useEffect(() => {
@@ -32,8 +32,6 @@ const MainShop:FC = () => {
         setListCards(response.products);
         setCloneListCards(response.products);
     }, [response])
-
-    console.log('response', response);
 
     if (error) {
         return (
@@ -54,9 +52,6 @@ const MainShop:FC = () => {
             </>
         )
     }
-
-    console.log('isLoading', isLoading);
-    console.log('listCards', listCards);
 
     return (
             <div className={s.sector}>

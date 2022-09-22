@@ -16,10 +16,6 @@ const PersonalData:FC<IPersonalData> = (
         useForm: { register, handleSubmit, formState: { errors }, control }
     }
 ) => {
-    const handlerSubmitFunction:SubmitHandler<IFormPersonalData> = (data) => {
-        console.log('data', data);
-    }
-
     return (
         <Container
             style={{marginTop: '20px'}}

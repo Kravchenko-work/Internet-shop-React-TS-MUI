@@ -1,5 +1,4 @@
 import {ICard, IProductInCart, ICardInCart} from "../types";
-import {forEach} from "react-bootstrap/ElementChildren";
 
 export const API_KEY = process.env.REACT_APP_API_KEY
 

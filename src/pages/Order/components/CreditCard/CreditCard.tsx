@@ -40,7 +40,6 @@ const normalizeCardCvc = (val:string) => {
 
     let invalidChars = ["-", "+", "e", "E", " ", "."];
 
-    console.log(returnVal.replace(/[-+eE\.\s]/, "").slice(0,4));
     return returnVal.replace(/[-+eE\.\s]/, "").slice(0,4);
 }
 
@@ -265,7 +264,6 @@ const CreditCard:FC<ICreditCard> = (
                                }
                            })}}
                            onClose={() => {
-                               console.log(getValues("expiry"));
                                setStateCreditCard({
                                    ...stateCreditCard,
                                    expiry: spliceExpiry(),
