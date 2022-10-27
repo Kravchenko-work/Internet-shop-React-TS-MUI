@@ -15,10 +15,10 @@ import s from "../../index.module.scss";
 import {ICard} from "./../../types";
 
 const MainShop:FC = () => {
-    const [listCards, setListCards] = useState<ICard[] | null>([]);
+    const [listCards, setListCards] = useState<ICard[]>([]);
     const [cloneListCards, setCloneListCards] = useState<ICard[]>([]);
     const [url, _] = useContext(ContextSearchUrl);
-    const [{response, error, isLoading}, doFetch] = useFetch(url);
+    const [{response, error, isLoading}, doFetch] = useFetch<{products: ICard[]}>(url);
 
     useEffect(() => {
         doFetch();
@@ -32,6 +32,8 @@ const MainShop:FC = () => {
         setListCards(response.products);
         setCloneListCards(response.products);
     }, [response])
+
+    console.log('response', response);
 
     if (error) {
         return (

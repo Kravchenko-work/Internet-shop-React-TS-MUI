@@ -22,23 +22,19 @@ export interface IListCard {
 export interface ICardInCart extends ICard{
     count: number;
 }
-// Тип any протипивизировать, временная заглушка any
-// export type typeResponseListCards = {products: ICard[]};
-// export type typeResponseCategories = string[];
 
 export type typeError = {
     message: string
 } | null
 
-export type typeFetch = (url?:string) => [
+export type typeReturnFetch<T> = [
     {
         isLoading: boolean,
-        response: any,
+        response: T | undefined,
         error: typeError
     },
     () => void
 ];
-
 
 export type typeLocalStorage = (key:string, initialValue?:string) => [
     string,

@@ -11,7 +11,7 @@ const FilterTopbar:FC = () => {
     const [categories, setCategories] = useState<string[]>(['All categories']);
     const [search, setSearch] = useState('');
 
-    const [{response}, doFetch] = useFetch('/categories');
+    const [{response}, doFetch] = useFetch<string[]>('/categories');
     const [_, setUrl] = useContext(ContextSearchUrl);
 
     const handleChangeSearch = (e: React.ChangeEvent<HTMLInputElement>) => {

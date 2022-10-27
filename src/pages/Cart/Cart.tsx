@@ -26,7 +26,7 @@ import {
 
 import "./Cart.scss";
 
-import {ICardInCart, IProductInCart} from "../../types";
+import {ICard, ICardInCart, IProductInCart} from "../../types";
 import FormPay from "../../components/FormPay/FormPay";
 
 
@@ -34,7 +34,7 @@ const Cart:FC = () => {
     const navigate = useNavigate();
     const [listAddedCart, setListAddedCart] = useState<ICardInCart[]>([]);
     const [open, setOpen] = useState(false);
-    const [{response, isLoading}, doFetch] = useFetch();
+    const [{response, isLoading}, doFetch] = useFetch<{products: ICard[]}>();
     const [productsInCart, setProductsInCart] = useLocalStorage<IProductInCart[],
         (val: IProductInCart[]) => void>('productsInCart', []);
 

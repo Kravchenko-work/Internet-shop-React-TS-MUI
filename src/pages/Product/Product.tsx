@@ -48,14 +48,14 @@ const theme = createTheme({
 
 const Product:FC = () => {
     const navigate  = useNavigate();
-    const [product, setProduct] = useState<ICard | null>(null);
+    const [product, setProduct] = useState<ICard>();
     const [addedProduct, setAddedProduct] = useState(0);
     const [isShowErrorStock, setIsShowErrorStock] = useState<boolean>(false);
     const [isShowErrorNoAddedProduct, setIsShowErrorNoAddedProduct] = useState<boolean>(false);
     const [openSuccessfully, setOpenSuccessfully] = useState<boolean>(false);
     const [openImpossible, setOpenImpossible] = useState<boolean>(false);
     const params = useParams<typeParams>();
-    const [{response, error, isLoading}, doFetch] = useFetch(`/${params.id}`);
+    const [{response, error, isLoading}, doFetch] = useFetch<ICard>(`/${params.id}`);
     const [productsInCart, setProductsInCart] = useLocalStorage<IProductInCart[],
             (val: IProductInCart[]) => void>('productsInCart', []);
     const handlerAddCart = () => {
@@ -114,8 +114,8 @@ const Product:FC = () => {
         if (!response) {
             return
         }
-        const iCardResponse = response as ICard;
-        setProduct(iCardResponse);
+
+        setProduct(response);
     }, [response])
 
     return (
