@@ -1,11 +1,11 @@
-import React, {createRef, FC, useEffect, useState} from 'react';
+import React, {FC, useState} from 'react';
 import {Box, Button, Container, Step, StepButton, Stepper, Typography} from "@mui/material";
 
 import PersonalData from "./components/PersonalData";
 
 import s from "./Order.module.scss"
 import {IFormPersonalData, IFormCreditCard, IFormAddress} from "../../types";
-import {SubmitHandler, useForm} from "react-hook-form";
+import {useForm} from "react-hook-form";
 import CreditCard from "./components/CreditCard/CreditCard";
 import Address from "./components/Address";
 import ConfirmOrder from "./components/ConfirmOrder";
@@ -21,7 +21,7 @@ const Order:FC = () => {
     const { register, handleSubmit, formState: { errors }, control, getValues, trigger } = useForm<IFormPersonalData>({
         mode: "onChange"
     });
-    const [personalData, setPersonalData] = useState<IFormPersonalData>({email: "", name: "", phone: ""});
+    const [_, setPersonalData] = useState<IFormPersonalData>({email: "", name: "", phone: ""});
 
     const {
         register: registerCreditCard,
@@ -35,7 +35,8 @@ const Order:FC = () => {
     } = useForm<IFormCreditCard>({
         mode: "onChange"
     });
-    const [creditCard, setCreditCard] = useState<IFormCreditCard>({
+
+    const [__, setCreditCard] = useState<IFormCreditCard>({
         cvc: "",
         expiry: "",
         expiryyear: "",
@@ -55,7 +56,7 @@ const Order:FC = () => {
     } = useForm<IFormAddress>({
         mode: "onChange"
     });
-    const [address, setAddress] = useState<IFormAddress>({
+    const [___, setAddress] = useState<IFormAddress>({
         address: ""
     });
 

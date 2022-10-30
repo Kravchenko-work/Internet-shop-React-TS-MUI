@@ -1,4 +1,4 @@
-import {ICard, IProductInCart, ICardInCart} from "../types";
+import {ICard, IQuantityCardInCart, ICardInCart} from "../types";
 
 export const API_KEY = process.env.REACT_APP_API_KEY
 
@@ -12,67 +12,46 @@ export const isErrorNotElement:typeIsErrorNotElement = (message) => {
     return regExp.test(message);
 }
 
-export const alphabeticallySortingCart = (listCard: ICard[]) => {
-    listCard.sort();
-    return listCard;
-}
-
-export const getUpdatedProductsInCart = (productsInCart: IProductInCart[], id: number, countProduct:number) => {
-    let arr = [...productsInCart];
+export const getUpdatedProductsInCart = (quantitiesCardInCart: IQuantityCardInCart[], id: number, quantityCard:number) => {
+    let arr = [...quantitiesCardInCart];
     let index = arr.findIndex((item) => (
         item.id === id
     ));
     if (index !== -1) {
-        arr[index].count += countProduct;
+        arr[index].count += quantityCard;
     } else {
         arr = [
             ...arr,
             {
                 id: id,
-                count: countProduct
+                count: quantityCard
             }
         ]
     }
     return arr;
 };
 
-export const getCountProductInCart = (productsInCart: IProductInCart[], id: number) => {
-    let index = productsInCart.findIndex((item) => (
+export const getCountProductInCart = (quantitiesCardInCart: IQuantityCardInCart[], id: number) => {
+    let index = quantitiesCardInCart.findIndex((item) => (
         item.id === id
     ));
 
-    return productsInCart[index]?.count || 0;
+    return quantitiesCardInCart[index]?.count || 0;
 }
 
-export const getListAddedCartFromGetListCard = (listCard: ICard[], productsInCart: IProductInCart[]) => {
-    let arrIndexes:number[] = [];
-    for (let item of listCard) {
-        arrIndexes.push(item.id);
-    }
-    let listAddedProduct:ICard[] = listCard.filter((itemListCard) => (
-        arrIndexes.includes(itemListCard.id)
-    ));
+export const getListAddedCartFromGetListCard = (listCard: ICard[], quantitiesCardInCart: IQuantityCardInCart[]):ICardInCart[] => {
+    let listCardInCartWithQuantity:ICardInCart[] = [];
 
-    listAddedProduct.map((item) => {
-        let product:IProductInCart | undefined = productsInCart.find((itemProduct) => {
-            return item.id === itemProduct.id;
-        })
-
-        return item
-    })
-
-    let returnArray:ICardInCart[] = [];
-
-    listAddedProduct.forEach((item) => {
-        let product:IProductInCart | undefined = productsInCart.find((itemProduct) => {
+    listCard.forEach((item) => {
+        let product = quantitiesCardInCart.find((itemProduct) => {
             return item.id === itemProduct.id;
         })
         if (product) {
-            returnArray.push({...item, count:product.count})
+            listCardInCartWithQuantity.push({...item, count:product.count})
         }
     })
 
-    return returnArray;
+    return listCardInCartWithQuantity;
 }
 
 

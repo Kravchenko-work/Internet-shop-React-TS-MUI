@@ -1,6 +1,6 @@
 import React, {FC} from 'react';
 
-import ProductCard from "../ProductCard/ProductCard";
+import Card from "../Card/Card";
 
 import s from "./ListCard.module.scss";
 
@@ -10,7 +10,7 @@ const ListCards:FC<IListCard> = ({list}) => {
     return (
         <div className={s.container}>
             {list.map((item) => (
-                <ProductCard key={item.id} card={item}/>
+                <Card key={item.id} card={item}/>
             ))}
         </div>
     );

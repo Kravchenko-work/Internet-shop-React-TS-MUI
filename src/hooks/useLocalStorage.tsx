@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
 
-function useLocalStorage<T1,T2> (key:string, initialValue:T1):[T1, T2] {
+function useLocalStorage<T1> (key:string, initialValue:T1):[T1, ((val: T1) => void)] {
     const[value, setValue] = useState(() => {
         const localStorageValue = localStorage.getItem(key);
         if (localStorageValue) {
@@ -14,7 +14,7 @@ function useLocalStorage<T1,T2> (key:string, initialValue:T1):[T1, T2] {
         localStorage.setItem(key, JSON.stringify(value));
     }, [value, key])
 
-    return [value as T1, setValue as T2];
+    return [value as T1, setValue as (val: T1) => void];
 }
 
 

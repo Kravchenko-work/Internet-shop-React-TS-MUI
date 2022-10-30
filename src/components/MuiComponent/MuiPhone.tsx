@@ -4,7 +4,7 @@ import {Controller} from "react-hook-form";
 import {TextField} from "@mui/material";
 
 import s from "./index.module.scss";
-import {IMuiPhone} from "../../types";
+import {IMuiPhone} from "./typesMui";
 
 
 

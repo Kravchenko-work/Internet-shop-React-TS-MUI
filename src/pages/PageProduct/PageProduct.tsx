@@ -23,9 +23,9 @@ import useFetch from "../../hooks/useFetch";
 import {currentPrice, getUpdatedProductsInCart, getCountProductInCart} from "../../utils";
 import useLocalStorage from "../../hooks/useLocalStorage";
 
-import s from "./Product.module.scss";
+import s from "./PageProduct.module.scss";
 
-import {IProductInCart, ICard} from "../../types/index";
+import {IQuantityCardInCart, ICard} from "../../types/index";
 
 type typeParams = {
     id: string
@@ -46,7 +46,7 @@ const theme = createTheme({
     },
 });
 
-const Product:FC = () => {
+const PageProduct:FC = () => {
     const navigate  = useNavigate();
     const [product, setProduct] = useState<ICard>();
     const [addedProduct, setAddedProduct] = useState(0);
@@ -55,9 +55,9 @@ const Product:FC = () => {
     const [openSuccessfully, setOpenSuccessfully] = useState<boolean>(false);
     const [openImpossible, setOpenImpossible] = useState<boolean>(false);
     const params = useParams<typeParams>();
-    const [{response, error, isLoading}, doFetch] = useFetch<ICard>(`/${params.id}`);
-    const [productsInCart, setProductsInCart] = useLocalStorage<IProductInCart[],
-            (val: IProductInCart[]) => void>('productsInCart', []);
+    const [{response, isLoading}, doFetch] = useFetch<ICard>(`/${params.id}`);
+    const [quantitiesCardInCart, setQuantitiesCardInCart] = useLocalStorage<IQuantityCardInCart[]>('quantitiesCardInCart', []);
+
     const handlerAddCart = () => {
         if (!addedProduct || !product) {
             setIsShowErrorNoAddedProduct(true);
@@ -65,13 +65,13 @@ const Product:FC = () => {
         }
 
         setOpenSuccessfully(true);
-        setProductsInCart(getUpdatedProductsInCart(productsInCart, product.id, addedProduct));
+        setQuantitiesCardInCart(getUpdatedProductsInCart(quantitiesCardInCart, product.id, addedProduct));
         setAddedProduct(0);
         setIsShowErrorStock(false);
     }
 
     const handlerIncreaseCount = (product:ICard) => {
-        const count = getCountProductInCart(productsInCart, product.id)
+        const count = getCountProductInCart(quantitiesCardInCart, product.id)
 
         if (product.stock > count + addedProduct) {
             setAddedProduct(addedProduct + 1);
@@ -179,7 +179,7 @@ const Product:FC = () => {
                                         <Button onClick={handlerAddCart} variant="contained" sx={{ width: 200 }}>Add to cart{addedProduct ? ` (${addedProduct})` : ''}</Button>
                                         <NavLink to='/cart'>
                                             <IconButton aria-label="cart">
-                                                <StyledBadge badgeContent={getCountProductInCart(productsInCart, product.id) || 0} color="secondary">
+                                                <StyledBadge badgeContent={getCountProductInCart(quantitiesCardInCart, product.id) || 0} color="secondary">
                                                     <ShoppingCartIcon />
                                                 </StyledBadge>
                                             </IconButton>
@@ -228,4 +228,4 @@ const Product:FC = () => {
     );
 };
 
-export default Product;
+export default PageProduct;

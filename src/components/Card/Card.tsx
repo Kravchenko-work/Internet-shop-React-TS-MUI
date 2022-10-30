@@ -3,9 +3,9 @@ import {IconButton, Rating} from "@mui/material";
 
 import {currentPrice} from "../../utils";
 
-import s from "./ProductCard.module.scss";
+import s from "./Card.module.scss";
 
-import {ICard as iCardFromTypes, IProductInCart} from "../../types";
+import {ICard as iCardFromTypes, IQuantityCardInCart} from "../../types";
 import {NavLink} from "react-router-dom";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import {styled} from "@mui/material/styles";
@@ -25,12 +25,11 @@ const StyledBadge = styled(Badge)<BadgeProps>(({ theme }) => ({
     },
 }));
 
-const ProductCard:FC<ICard> = ({card}) => {
-    const [productsInCart, setProductsInCart] = useLocalStorage<IProductInCart[],
-        (val: IProductInCart[]) => void>('productsInCart', []);
+const Card:FC<ICard> = ({card}) => {
+    const [quantitiesCardInCart, _] = useLocalStorage<IQuantityCardInCart[]>('quantitiesCardInCart', []);
 
 
-    const index:number = productsInCart.findIndex((item) => {
+    const index:number = quantitiesCardInCart.findIndex((item) => {
         return item.id === card.id
     })
 
@@ -56,7 +55,7 @@ const ProductCard:FC<ICard> = ({card}) => {
                      <div className={s.productPrice}><span>${card.price}</span>${currentPrice(card)}</div>
                      <NavLink to='/cart'>
                          <IconButton aria-label="cart">
-                             <StyledBadge badgeContent={productsInCart[index]?.count || 0} color="secondary">
+                             <StyledBadge badgeContent={quantitiesCardInCart[index]?.count || 0} color="secondary">
                                  <ShoppingCartIcon />
                              </StyledBadge>
                          </IconButton>
@@ -70,4 +69,4 @@ const ProductCard:FC<ICard> = ({card}) => {
     );
 };
 
-export default ProductCard;
+export default Card;

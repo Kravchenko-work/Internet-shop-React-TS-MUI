@@ -1,6 +1,6 @@
 import axios from "axios";
 import {useCallback, useEffect, useState} from 'react';
-import {typeReturnFetch, typeError} from "../types";
+import {typeReturnFetch, typeError} from "./typesHooks";
 
 const useFetch = <T>(
         url: string = "",

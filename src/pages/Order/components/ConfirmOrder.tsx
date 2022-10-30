@@ -1,16 +1,15 @@
 import React, {FC, useEffect, useState} from 'react';
 import {Backdrop, CircularProgress, Container} from "@mui/material";
 import useFetch from "../../../hooks/useFetch";
-import {ICard, ICardInCart, IProductInCart} from "../../../types";
+import {ICard, ICardInCart, IQuantityCardInCart} from "../../../types";
 import {getListAddedCartFromGetListCard} from "../../../utils";
 import useLocalStorage from "../../../hooks/useLocalStorage";
 import FormPay from "../../../components/FormPay/FormPay";
 
 const ConfirmOrder:FC = () => {
-    const [{response, error, isLoading}, doFetch] = useFetch<{products: ICard[]}>();
+    const [{response, isLoading}, doFetch] = useFetch<{products: ICard[]}>();
     const [listAddedCart, setListAddedCart] = useState<ICardInCart[]>([]);
-    const [productsInCart, setProductsInCart] = useLocalStorage<IProductInCart[],
-        (val: IProductInCart[]) => void>('productsInCart', []);
+    const [quantitiesCardInCart] = useLocalStorage<IQuantityCardInCart[]>('quantitiesCardInCart', []);
 
     useEffect(() => {
         doFetch();
@@ -22,7 +21,7 @@ const ConfirmOrder:FC = () => {
             return
         }
 
-        setListAddedCart(getListAddedCartFromGetListCard(response.products, productsInCart));
+        setListAddedCart(getListAddedCartFromGetListCard(response.products, quantitiesCardInCart));
     }, [response])
 
     if (isLoading) {

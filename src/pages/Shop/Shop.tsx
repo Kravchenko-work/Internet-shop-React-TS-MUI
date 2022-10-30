@@ -33,8 +33,6 @@ const MainShop:FC = () => {
         setCloneListCards(response.products);
     }, [response])
 
-    console.log('response', response);
-
     if (error) {
         return (
             <>

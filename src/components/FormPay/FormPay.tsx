@@ -1,7 +1,7 @@
 import React, {FC} from 'react';
 import {Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle} from "@mui/material";
 import {calcPriceAllCardAllCount} from "../../utils";
-import {ICardInCart, IProductInCart} from "../../types";
+import {ICardInCart, IQuantityCardInCart} from "../../types";
 import {useNavigate} from "react-router-dom";
 import useLocalStorage from "../../hooks/useLocalStorage";
 
@@ -13,8 +13,7 @@ interface IFormPay {
 const FormPay:FC<IFormPay> = ({listAddedCart, type="cart"}) => {
     const [open, setOpen] = React.useState(false);
 
-    const [_, setProductsInCart] = useLocalStorage<IProductInCart[],
-        (val: IProductInCart[]) => void>('productsInCart', []);
+    const [_, setQuantitiesCardInCart] = useLocalStorage<IQuantityCardInCart[]>('quantitiesCardInCart', []);
 
     const navigate = useNavigate();
     const subtotal = calcPriceAllCardAllCount(listAddedCart),
@@ -26,7 +25,7 @@ const FormPay:FC<IFormPay> = ({listAddedCart, type="cart"}) => {
             navigate('/order');
         } else {
             handleClickOpen();
-            setProductsInCart([]);
+            setQuantitiesCardInCart([]);
         }
     }
 

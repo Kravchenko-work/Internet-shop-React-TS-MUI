@@ -1,7 +1,7 @@
 import React, {FC} from "react";
 import {Skeleton} from "@mui/material";
 
-import sCard from "../../../components/ProductCard/ProductCard.module.scss";
+import sCard from "../../../components/Card/Card.module.scss";
 import sListCard from "./../../../components/ListCard/ListCard.module.scss";
 
 

@@ -1,7 +1,7 @@
 import React, {FC} from 'react';
 import {TextField} from "@mui/material";
 
-import {IMuiInput} from "./../../types"
+import {IMuiInput} from "./typesMui"
 
 const MuiInput:FC<IMuiInput> = (
     {

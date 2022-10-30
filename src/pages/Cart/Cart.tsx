@@ -26,7 +26,7 @@ import {
 
 import "./Cart.scss";
 
-import {ICard, ICardInCart, IProductInCart} from "../../types";
+import {ICard, ICardInCart, IQuantityCardInCart} from "../../types";
 import FormPay from "../../components/FormPay/FormPay";
 
 
@@ -35,23 +35,22 @@ const Cart:FC = () => {
     const [listAddedCart, setListAddedCart] = useState<ICardInCart[]>([]);
     const [open, setOpen] = useState(false);
     const [{response, isLoading}, doFetch] = useFetch<{products: ICard[]}>();
-    const [productsInCart, setProductsInCart] = useLocalStorage<IProductInCart[],
-        (val: IProductInCart[]) => void>('productsInCart', []);
+    const [quantitiesCardInCart, setQuantitiesCardInCart] = useLocalStorage<IQuantityCardInCart[]>('quantitiesCardInCart', []);
 
-    const handlerIncreaseCount = (addedCart:ICardInCart) => {
+    const handleIncreaseCount = (addedCart:ICardInCart) => {
         if (addedCart.stock > addedCart.count) {
-            setProductsInCart(getUpdatedProductsInCart(productsInCart, addedCart.id, 1));
+            setQuantitiesCardInCart(getUpdatedProductsInCart(quantitiesCardInCart, addedCart.id, 1));
         } else {
             // setIsShowError(true);
         }
     }
 
-    const handlerReduceCount = (addedCart:ICardInCart) => {
+    const handleReduceCount = (addedCart:ICardInCart) => {
         if (addedCart.count === 1) {
             // setIsShowError(false);
             return
         }
-        setProductsInCart(getUpdatedProductsInCart(productsInCart, addedCart.id, -1));
+        setQuantitiesCardInCart(getUpdatedProductsInCart(quantitiesCardInCart, addedCart.id, -1));
     }
 
     const handleClickDelete = () => {
@@ -63,7 +62,7 @@ const Cart:FC = () => {
     };
 
     const handleDeleteProductsInCart = (addedCart:ICardInCart) => {
-        setProductsInCart(productsInCart.filter((item) => {
+        setQuantitiesCardInCart(quantitiesCardInCart.filter((item) => {
             return item.id !== addedCart.id
         }))
         setOpen(false);
@@ -78,12 +77,12 @@ const Cart:FC = () => {
             return
         }
 
-        setListAddedCart(getListAddedCartFromGetListCard(response.products, productsInCart));
+        setListAddedCart(getListAddedCartFromGetListCard(response.products, quantitiesCardInCart));
     }, [response])
 
     useEffect(() => {
-        setListAddedCart(getListAddedCartFromGetListCard(listAddedCart, productsInCart));
-    }, [productsInCart]);
+        setListAddedCart(getListAddedCartFromGetListCard(listAddedCart, quantitiesCardInCart));
+    }, [quantitiesCardInCart]);
 
     if (isLoading) {
         return (
@@ -172,7 +171,7 @@ const Cart:FC = () => {
                                         <ButtonGroup>
                                             <Button
                                                 aria-label="reduce"
-                                                onClick={() => {handlerReduceCount(addedCart)}}
+                                                onClick={() => {handleReduceCount(addedCart)}}
                                             >
                                                 <RemoveIcon fontSize="small" />
                                             </Button>
@@ -181,7 +180,7 @@ const Cart:FC = () => {
                                             </Box>
                                             <Button
                                                 aria-label="increase"
-                                                onClick={() => {handlerIncreaseCount(addedCart)}}
+                                                onClick={() => {handleIncreaseCount(addedCart)}}
                                             >
                                                 <AddIcon fontSize="small" />
                                             </Button>

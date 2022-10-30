@@ -1,8 +1,7 @@
 import React, {FC} from "react";
 import {Skeleton} from "@mui/material";
-import "../Product.module.scss"
 
-import s from "./../Product.module.scss"
+import s from "./../PageProduct.module.scss"
 
 
 const ProductSkeleton:FC = () => {
